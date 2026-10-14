@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pensum Universitario</title>
+    <style>
+        body { font-family: -apple-system, system-ui, sans-serif; padding: 20px; }
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 8px 0;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📚 Mi Pensum</h1>
+
+    <div class="card">
+        <h2>Actualizaciones</h2>
+        <p>Versión instalada: <span id="currentVersion">...</span></p>
+        <button class="btn" onclick="buscarActualizacion()">
+            🔄 Buscar Actualizaciones
+        </button>
+    </div>
+
+    <div class="card">
+        <h2>Contenido</h2>
+        <p>Aquí irá tu HTML/CSS/JS con Dexie.js para el modo offline.</p>
+    </div>
+
+    <script>
+        // Detecta si estamos corriendo dentro del WebView de Android
+        const isAndroid = typeof Android !== 'undefined';
+
+        if (isAndroid) {
+            document.getElementById('currentVersion').textContent =
+                Android.getAppVersion();
+        } else {
+            document.getElementById('currentVersion').textContent = 'web';
+        }
+
+        function buscarActualizacion() {
+            if (isAndroid) {
+                Android.checkForUpdates();
+            } else {
+                alert('Esta función solo está disponible dentro de la app Android.');
+            }
+        }
+    </script>
+</body>
+</html>
